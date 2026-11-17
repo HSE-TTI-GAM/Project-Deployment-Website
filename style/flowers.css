@@ -27,18 +27,18 @@ body {
 
 .flowers {
   position: relative;
-  transform: translateX(clamp(80px, 18vw, 240px)) scale(0.95) translateY(-10px);
+  transform: translateX(clamp(60px, 12vw, 170px)) scale(0.95) translateY(-10px);
 }
 
 @media screen and (max-width: 1180px) {
   .flowers {
-    transform: translateX(clamp(70px, 17vw, 190px)) scale(0.84) translateY(-10px);
+    transform: translateX(clamp(30px, 8vw, 100px)) scale(0.88) translateY(-10px);
   }
 }
 
 @media screen and (max-height: 520px) and (orientation: landscape) {
   .flowers {
-    transform: translateX(clamp(60px, 18vw, 150px)) scale(0.76) translateY(-6px);
+    transform: translateX(clamp(40px, 11vw, 100px)) scale(0.92) translateY(-6px);
   }
 }
 

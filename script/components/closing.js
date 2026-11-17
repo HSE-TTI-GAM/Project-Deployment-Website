@@ -236,9 +236,9 @@
                   </text>
                 </svg>
               </div>
-              <iframe class="flowers-inline-frame" id="flowers-inline-frame" src="" title="Blooming Flowers"></iframe>
             </div>
           </div>
+          <iframe class="flowers-inline-frame" id="flowers-inline-frame" src="" title="Blooming Flowers"></iframe>
           <div class="night-switch-wrap" id="night-switch-wrap" style="display:none;">
             <span class="night-switch-icon" aria-hidden="true">☀️</span>
             <button type="button" class="night-switch-btn" id="night-switch-btn" aria-label="Ubah ke mode malam">
@@ -417,7 +417,7 @@
 
                   // 4. Then pink blooming flowers grow on the right
                   setTimeout(() => {
-                    flowersInlineFrame.src = "flowers.html?v=20261117";
+                    flowersInlineFrame.src = "flowers.html?v=20261117c";
                     flowersInlineFrame.classList.add("is-visible");
 
                     // 5. After flowers finish blooming, Edelweis quote fades in on the left

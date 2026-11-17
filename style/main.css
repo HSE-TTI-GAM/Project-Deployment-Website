@@ -502,6 +502,11 @@ body {
   z-index: 1000;
 }
 
+.mobile-music-overlay {
+  z-index: 5000;
+  background: rgba(255, 255, 255, 0.85);
+}
+
 .tease-modal-card {
   width: 100%;
   max-width: 420px;
@@ -1128,10 +1133,6 @@ body {
 
 /* ── Small mobile ──────────────────────────────────────────────── */
 @media screen and (max-width: 600px) {
-  .section {
-    padding: 1.2rem 1rem;
-  }
-
   .text-box {
     width: 94%;
     padding: 1.2rem;
@@ -1149,14 +1150,6 @@ body {
     padding: 1.5rem;
   }
 
-  #theme-toggle {
-    width: 38px;
-    height: 38px;
-    font-size: 1rem;
-    top: 0.75rem;
-    right: 0.75rem;
-  }
-
   .wish-hbd {
     letter-spacing: 1px;
   }
@@ -1164,10 +1157,6 @@ body {
 
 /* ── Landscape mobile ─────────────────────────────────────────── */
 @media screen and (max-height: 500px) {
-  .section {
-    padding: 0.5rem 1rem;
-  }
-
   .greeting-title {
     font-size: clamp(1.8rem, 6vw, 3rem);
   }
@@ -1196,9 +1185,4 @@ body {
   .section-announcement p {
     font-size: clamp(1.4rem, 5vw, 2.2rem);
   }
-}
-
-/* ── SweetAlert2 ───────────────────────────────────────────────── */
-.swal2-popup {
-  border-radius: 16px !important;
 }

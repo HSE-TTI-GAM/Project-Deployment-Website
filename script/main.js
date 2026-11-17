@@ -108,7 +108,43 @@ function createMusicToggle(audio) {
   });
 
   document.body.appendChild(btn);
-  return () => userMuted;
+  return {
+    isUserMuted: () => userMuted,
+    setUserMuted: (val) => {
+      userMuted = Boolean(val);
+    },
+  };
+}
+
+function showMobileMusicPrompt(audio, setUserMuted, onStart) {
+  const overlay = document.createElement("div");
+  overlay.id = "mobile-music-prompt";
+  overlay.className = "tease-modal-overlay mobile-music-overlay";
+  overlay.innerHTML = `
+    <div class="tease-modal-card">
+      <p class="tease-emoji">🎵</p>
+      <h3 class="tease-title">Putar musiknya juga ya?</h3>
+      <div class="tease-actions">
+        <button type="button" class="tease-btn tease-btn-yes" id="mobile-music-yes">Iya, putar! 🔊</button>
+        <button type="button" class="tease-btn tease-btn-no" id="mobile-music-no">Enggak 🔇</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  overlay.querySelector("#mobile-music-yes").addEventListener("click", () => {
+    setUserMuted(false);
+    if (audio) audio.play().catch(() => {});
+    overlay.remove();
+    onStart();
+  });
+
+  overlay.querySelector("#mobile-music-no").addEventListener("click", () => {
+    setUserMuted(true);
+    if (audio) audio.pause();
+    overlay.remove();
+    onStart();
+  });
 }
 
 function createRestartButton() {
@@ -137,10 +173,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Set music source
   const audio = document.querySelector(".song");
   if (audio && CONFIG.music) {
+    audio.preload = "auto";
     audio.querySelector("source").src = CONFIG.music;
     audio.load();
   }
-  const isUserMuted = createMusicToggle(audio);
+  const { isUserMuted, setUserMuted } = createMusicToggle(audio);
   createRestartButton();
 
   // Determine unique component types
@@ -149,7 +186,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Dynamically load component scripts
   for (const type of types) {
     try {
-      await loadScript(`./script/components/${type}.js?v=20261117`);
+      await loadScript(`./script/components/${type}.js?v=20261117c`);
     } catch (e) {
       console.warn(e.message);
     }
@@ -169,19 +206,29 @@ document.addEventListener("DOMContentLoaded", async () => {
     rendered.push({ el, comp, section });
   });
 
-  // Auto-play music immediately (with iOS/mobile tap fallback if browser blocks autoplay)
+  const isMobileOrTablet =
+    (window.matchMedia && window.matchMedia("(pointer: coarse)").matches) ||
+    navigator.maxTouchPoints > 0 ||
+    window.innerWidth <= 1180;
+
+  if (isMobileOrTablet) {
+    showMobileMusicPrompt(audio, setUserMuted, () => buildTimeline(rendered));
+    return;
+  }
+
+  // Desktop: Auto-play music by default (with tap/key fallback if browser blocks autoplay)
   if (audio) {
-    const unlockEvents = ["click", "touchend"];
-    const unlockAudio = () => {
+    const unlockEvents = ["click", "touchend", "pointerdown", "keydown"];
+    const tryPlay = () => {
       if (isUserMuted()) return;
       audio.play().then(() => {
-        unlockEvents.forEach((evt) => document.removeEventListener(evt, unlockAudio));
+        unlockEvents.forEach((evt) => document.removeEventListener(evt, tryPlay));
       }).catch(() => {});
     };
 
-    audio.play().catch(() => {
-      unlockEvents.forEach((evt) => document.addEventListener(evt, unlockAudio, { passive: true }));
-    });
+    tryPlay();
+    audio.addEventListener("canplay", tryPlay, { once: true });
+    unlockEvents.forEach((evt) => document.addEventListener(evt, tryPlay, { passive: true }));
   }
   buildTimeline(rendered);
 });
