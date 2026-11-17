@@ -504,12 +504,7 @@
           scale: 0.9,
           ease: "back.out(1.7)",
         }, "+=0.3")
-        .set(secretBtn, { pointerEvents: "auto" })
-        .call(() => {
-          if (window.innerHeight <= 520 && !document.getElementById("tease-modal-overlay")) {
-            openTeaseModal(el._sectionData || {});
-          }
-        }, null, "+=1.0");
+        .set(secretBtn, { pointerEvents: "auto" });
       }
     },
   };

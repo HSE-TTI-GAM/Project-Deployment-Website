@@ -1126,23 +1126,27 @@ body {
     margin-top: 0.5rem;
   }
 
+  .section-closing {
+    padding-top: 88px;
+  }
+
   .section-closing p {
-    font-size: 0.95rem;
-    line-height: 1.45;
+    font-size: 0.92rem;
+    line-height: 1.4;
   }
 
   .last-smile {
-    font-size: 1.6rem !important;
-    margin-top: 0.25rem;
+    font-size: 1.5rem !important;
+    margin-top: 0.2rem;
   }
 
   .next-surprise-wrap {
-    margin-top: 0.6rem;
+    margin-top: 0.5rem;
   }
 
   .next-surprise-btn {
-    padding: 0.5rem 1.2rem;
-    font-size: 0.88rem;
+    padding: 0.55rem 1.35rem;
+    font-size: 0.9rem;
   }
 }
 
