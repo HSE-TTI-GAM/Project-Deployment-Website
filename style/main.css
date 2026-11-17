@@ -598,6 +598,19 @@ body {
 .bday-modal-card.is-night {
   background: #090d16;
   color: #e2e8f0;
+  transition: background-color 4s ease-in-out, color 2s ease-in-out;
+}
+
+.bday-modal-card.is-ambient-1 {
+  background: #160d2b;
+}
+
+.bday-modal-card.is-ambient-2 {
+  background: #230e24;
+}
+
+.bday-modal-card.is-ambient-3 {
+  background: #0d1b2a;
 }
 
 .bday-modal-card #mainDiv {

@@ -448,6 +448,20 @@
                         if (window.showRestartButton) {
                           window.showRestartButton();
                         }
+
+                        // Slowly shift night ambient sky every 40s if she stays watching
+                        const ambientClasses = ["is-ambient-1", "is-ambient-2", "is-ambient-3", ""];
+                        let ambientIdx = 0;
+                        const ambientTimer = setInterval(() => {
+                          if (!document.body.contains(step2)) {
+                            clearInterval(ambientTimer);
+                            return;
+                          }
+                          step2.classList.remove("is-ambient-1", "is-ambient-2", "is-ambient-3");
+                          const nextClass = ambientClasses[ambientIdx];
+                          if (nextClass) step2.classList.add(nextClass);
+                          ambientIdx = (ambientIdx + 1) % ambientClasses.length;
+                        }, 40000);
                       }, 5200);
                     };
 
