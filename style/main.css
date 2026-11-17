@@ -1125,6 +1125,25 @@ body {
   .edelweis-sign {
     margin-top: 0.5rem;
   }
+
+  .section-closing p {
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  .last-smile {
+    font-size: 1.6rem !important;
+    margin-top: 0.25rem;
+  }
+
+  .next-surprise-wrap {
+    margin-top: 0.6rem;
+  }
+
+  .next-surprise-btn {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.88rem;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════

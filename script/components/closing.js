@@ -461,6 +461,7 @@
     render(container, section) {
       const div = document.createElement("div");
       div.className = "section section-closing";
+      div._sectionData = section;
       const secretBtnHtml = `
         <div class="next-surprise-wrap">
           <button type="button" class="next-surprise-btn" id="open-secret-btn">
@@ -508,7 +509,12 @@
           scale: 0.9,
           ease: "back.out(1.7)",
         }, "+=0.3")
-        .set(secretBtn, { pointerEvents: "auto" });
+        .set(secretBtn, { pointerEvents: "auto" })
+        .call(() => {
+          if (window.innerHeight <= 520 && !document.getElementById("tease-modal-overlay")) {
+            openTeaseModal(el._sectionData || {});
+          }
+        }, null, "+=1.0");
       }
     },
   };
