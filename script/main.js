@@ -169,15 +169,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     rendered.push({ el, comp, section });
   });
 
-  // Auto-play music immediately (with tap fallback if browser blocks autoplay)
+  // Auto-play music immediately (with iOS/mobile tap fallback if browser blocks autoplay)
   if (audio) {
-    const startAudio = () => {
-      if (!isUserMuted()) {
-        audio.play().catch(() => {});
-      }
+    const unlockEvents = ["click", "touchend"];
+    const unlockAudio = () => {
+      if (isUserMuted()) return;
+      audio.play().then(() => {
+        unlockEvents.forEach((evt) => document.removeEventListener(evt, unlockAudio));
+      }).catch(() => {});
     };
+
     audio.play().catch(() => {
-      document.addEventListener("pointerdown", startAudio, { once: true });
+      unlockEvents.forEach((evt) => document.addEventListener(evt, unlockAudio, { passive: true }));
     });
   }
   buildTimeline(rendered);

@@ -270,25 +270,72 @@
     const teaseEmoji = overlay.querySelector("#tease-emoji");
     const teaseTitle = overlay.querySelector("#tease-title");
 
+    const teaseActions = overlay.querySelector(".tease-actions");
+
     function moveNoButton(e) {
       if (e) {
         e.preventDefault();
         e.stopPropagation();
       }
-      const rect = noBtn.getBoundingClientRect();
-      const pad = 20;
-      const maxX = Math.max(pad, window.innerWidth - rect.width - pad);
-      const maxY = Math.max(pad, window.innerHeight - rect.height - pad);
-      const nextX = pad + Math.random() * (maxX - pad);
-      const nextY = pad + Math.random() * (maxY - pad);
+      if (noBtn.parentElement !== overlay) {
+        overlay.appendChild(noBtn);
+      }
+
+      const btnRect = noBtn.getBoundingClientRect();
+      const cardRect = step1.getBoundingClientRect();
+      const pad = 16;
+      const gap = 12;
+      const maxX = Math.max(pad, window.innerWidth - btnRect.width - pad);
+      const maxY = Math.max(pad, window.innerHeight - btnRect.height - pad);
+
+      let nextX = pad;
+      let nextY = pad;
+      let found = false;
+
+      for (let i = 0; i < 40; i++) {
+        const rx = pad + Math.random() * (maxX - pad);
+        const ry = pad + Math.random() * (maxY - pad);
+        const overlapsCard =
+          rx < cardRect.right + gap &&
+          rx + btnRect.width > cardRect.left - gap &&
+          ry < cardRect.bottom + gap &&
+          ry + btnRect.height > cardRect.top - gap;
+
+        if (!overlapsCard) {
+          nextX = rx;
+          nextY = ry;
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        const candidates = [];
+        if (cardRect.left - btnRect.width - gap >= pad) {
+          candidates.push({ x: Math.max(pad, cardRect.left - btnRect.width - gap - Math.random() * 40), y: pad + Math.random() * (maxY - pad) });
+        }
+        if (cardRect.right + gap + btnRect.width <= window.innerWidth - pad) {
+          candidates.push({ x: Math.min(maxX, cardRect.right + gap + Math.random() * 40), y: pad + Math.random() * (maxY - pad) });
+        }
+        if (cardRect.top - btnRect.height - gap >= pad) {
+          candidates.push({ x: pad + Math.random() * (maxX - pad), y: pad });
+        }
+        if (cardRect.bottom + gap + btnRect.height <= window.innerHeight - pad) {
+          candidates.push({ x: pad + Math.random() * (maxX - pad), y: maxY });
+        }
+        if (candidates.length) {
+          const pick = candidates[Math.floor(Math.random() * candidates.length)];
+          nextX = pick.x;
+          nextY = pick.y;
+        }
+      }
 
       noBtn.style.position = "fixed";
       noBtn.style.left = `${nextX}px`;
       noBtn.style.top = `${nextY}px`;
-      noBtn.style.zIndex = "1002";
+      noBtn.style.zIndex = "1005";
     }
 
-    noBtn.addEventListener("mouseenter", moveNoButton);
     noBtn.addEventListener("pointerdown", moveNoButton);
     noBtn.addEventListener("click", moveNoButton);
 
@@ -308,6 +355,10 @@
         noBtn.style.position = "";
         noBtn.style.left = "";
         noBtn.style.top = "";
+        noBtn.style.zIndex = "";
+        if (teaseActions && noBtn.parentElement !== teaseActions) {
+          teaseActions.appendChild(noBtn);
+        }
         if (next.no === null) {
           noBtn.style.display = "none";
         } else {

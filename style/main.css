@@ -809,7 +809,7 @@ body {
   font-style: italic;
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 960px) and (orientation: portrait) {
   .bday-modal-card {
     overflow-y: auto;
   }
@@ -986,7 +986,7 @@ body {
   line-height: 1.6;
 }
 
-@media screen and (max-width: 760px) and (orientation: portrait) {
+@media screen and (max-width: 1100px) and (orientation: portrait) {
   .rotate-overlay {
     display: flex;
   }
@@ -1083,15 +1083,27 @@ body {
   }
 
   .edelweis-quote {
-    width: 44vw;
+    position: fixed;
+    top: 46%;
     left: 1.2rem;
-    padding: 0.9rem 1.1rem;
+    transform: translateY(-50%);
+    width: 46vw;
+    max-width: 46vw;
+    padding: 0.75rem 1rem;
+  }
+
+  .edelweis-quote.is-visible {
+    transform: translateY(-50%);
   }
 
   .edelweis-text,
   .edelweis-sign {
-    font-size: 0.82rem;
-    line-height: 1.55;
+    font-size: 0.78rem;
+    line-height: 1.48;
+  }
+
+  .edelweis-sign {
+    margin-top: 0.5rem;
   }
 }
 

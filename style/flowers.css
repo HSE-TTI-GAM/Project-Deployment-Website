@@ -18,7 +18,7 @@ body {
   background-color: transparent;
   overflow: hidden;
   perspective: 1000px;
-  padding: 0 clamp(140px, 24vw, 340px) 0 0;
+  padding: 0 clamp(60px, 14vw, 220px) 0 0;
 }
 
 .night {
@@ -28,6 +28,26 @@ body {
 .flowers {
   position: relative;
   transform: scale(0.95) translateY(-10px);
+}
+
+@media screen and (max-width: 1100px) {
+  body {
+    padding-right: clamp(40px, 10vw, 130px);
+  }
+
+  .flowers {
+    transform: scale(0.84) translateY(-10px);
+  }
+}
+
+@media screen and (max-height: 520px) and (orientation: landscape) {
+  body {
+    padding-right: clamp(30px, 8vw, 90px);
+  }
+
+  .flowers {
+    transform: scale(0.78) translateY(-6px);
+  }
 }
 
 .flower {
