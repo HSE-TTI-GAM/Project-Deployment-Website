@@ -108,6 +108,31 @@ function createMusicToggle(audio) {
   });
 
   document.body.appendChild(btn);
+
+  let activeEndedHandler = null;
+  window.switchBackgroundMusic = (src, shouldLoop, onEnded) => {
+    if (!audio || !src) return;
+    if (activeEndedHandler) {
+      audio.removeEventListener("ended", activeEndedHandler);
+      activeEndedHandler = null;
+    }
+    audio.loop = Boolean(shouldLoop);
+    const sourceEl = audio.querySelector("source");
+    if (sourceEl) sourceEl.src = src;
+    audio.src = src;
+    audio.load();
+    if (typeof onEnded === "function") {
+      activeEndedHandler = () => {
+        activeEndedHandler = null;
+        onEnded();
+      };
+      audio.addEventListener("ended", activeEndedHandler, { once: true });
+    }
+    if (!userMuted) {
+      audio.play().catch(() => {});
+    }
+  };
+
   return {
     isUserMuted: () => userMuted,
     setUserMuted: (val) => {

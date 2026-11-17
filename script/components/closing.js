@@ -388,6 +388,12 @@
       step1.style.display = "none";
       step2.style.display = "block";
 
+      if (window.switchBackgroundMusic && typeof CONFIG !== "undefined" && CONFIG.aboutYouMusic) {
+        window.switchBackgroundMusic(CONFIG.aboutYouMusic, false, () => {
+          window.switchBackgroundMusic(CONFIG.music, true);
+        });
+      }
+
       if (window.birthdayApp) {
         let codeDone = false;
         let cakeDone = false;

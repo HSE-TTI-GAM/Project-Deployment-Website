@@ -29,7 +29,8 @@ const CONFIG = {
   // ── Recipient Info ────────────────────────────────────────────
   name: "Delvina Syaifira Norma Hani",
   photo: "./img/delvina.jpg",     // Place your photo in the img/ folder
-  music: "./music/hbd.mp3",       // Place your music in the music/ folder
+  music: "./music/hbd.mp3",       // Intro & fallback loop music
+  aboutYouMusic: "./music/about-you.mp3", // Plays once during cake & flowers
 
   // ── Theme Colors ──────────────────────────────────────────────
   // A toggle button lets the viewer switch between dark & light mode.
