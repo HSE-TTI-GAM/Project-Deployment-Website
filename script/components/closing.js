@@ -417,7 +417,7 @@
 
                   // 4. Then pink blooming flowers grow on the right
                   setTimeout(() => {
-                    flowersInlineFrame.src = "flowers.html";
+                    flowersInlineFrame.src = "flowers.html?v=20261117";
                     flowersInlineFrame.classList.add("is-visible");
 
                     // 5. After flowers finish blooming, Edelweis quote fades in on the left
