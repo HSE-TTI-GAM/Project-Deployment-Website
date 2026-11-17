@@ -473,9 +473,6 @@
         <p class="closing-text">${
           section.text || "Okay, now come back and tell me if you liked it."
         }</p>
-        <p class="replay-btn" id="replay">${
-          section.replayText || "Or click, if you want to watch it again."
-        }</p>
         <p class="last-smile">:)</p>
         ${secretBtnHtml}
       `;
@@ -494,8 +491,6 @@
       tl.from(el.querySelectorAll("p"), {
         duration: 1, ...ideaIn, stagger: 1.2,
       })
-      // Enable replay button only after it becomes visible
-      .set(el.querySelector("#replay"), { pointerEvents: "auto" })
       .to(el.querySelector(".last-smile"), {
         duration: 0.5, rotation: 90,
       }, "+=1");

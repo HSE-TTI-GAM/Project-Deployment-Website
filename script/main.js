@@ -274,13 +274,4 @@ function buildTimeline(rendered) {
 
   // Flush remaining
   deferredExits.forEach((fn) => fn());
-
-  // Setup replay
-  const replayBtn = document.getElementById("replay");
-  if (replayBtn) {
-    replayBtn.addEventListener("click", () => {
-      stickerIndex = -1;
-      tl.restart();
-    });
-  }
 }
