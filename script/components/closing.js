@@ -220,7 +220,7 @@
               <p class="edelweis-text">
                 “Beberapa orang tenang bukan karena tanpa luka, tapi karena mereka memilih untuk tetap tumbuh—layaknya edelweis yang tumbuh di lereng gunung; dia tumbuh di tempat paling ekstrem dan sulit, tapi tetap mekar paling indah.”
               </p>
-              <p class="edelweis-sign">and goodnight 🌙</p>
+              <p class="edelweis-sign">and goodnight to you 🌙</p>
             </div>
             <div id="loveHeart">
               <canvas id="garden"></canvas>
@@ -246,6 +246,9 @@
             </button>
             <span class="night-switch-icon" aria-hidden="true">🌙</span>
           </div>
+          <p class="footer-credit" id="footer-credit" style="display:none;">
+            created by someone who has a handsome face ;)
+          </p>
         </div>
       </div>
     `;
@@ -263,6 +266,7 @@
     const flowersInlineFrame = overlay.querySelector("#flowers-inline-frame");
     const nightSwitchWrap = overlay.querySelector("#night-switch-wrap");
     const nightSwitchBtn = overlay.querySelector("#night-switch-btn");
+    const footerCreditEl = overlay.querySelector("#footer-credit");
     const teaseEmoji = overlay.querySelector("#tease-emoji");
     const teaseTitle = overlay.querySelector("#tease-title");
 
@@ -370,6 +374,10 @@
                       if (edelweisEl) {
                         edelweisEl.style.display = "block";
                         requestAnimationFrame(() => edelweisEl.classList.add("is-visible"));
+                      }
+                      if (footerCreditEl) {
+                        footerCreditEl.style.display = "block";
+                        requestAnimationFrame(() => footerCreditEl.classList.add("is-visible"));
                       }
                       if (window.showRestartButton) {
                         window.showRestartButton();

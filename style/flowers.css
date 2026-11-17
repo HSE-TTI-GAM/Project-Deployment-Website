@@ -13,12 +13,12 @@
 body {
   display: flex;
   align-items: flex-end;
-  justify-content: center;
+  justify-content: flex-end;
   min-height: 100vh;
   background-color: transparent;
   overflow: hidden;
   perspective: 1000px;
-  padding: 0;
+  padding: 0 clamp(140px, 24vw, 340px) 0 0;
 }
 
 .night {
