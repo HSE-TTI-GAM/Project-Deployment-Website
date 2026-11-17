@@ -220,7 +220,7 @@
               <p class="edelweis-text">
                 “Beberapa orang tenang bukan karena tanpa luka, tapi karena mereka memilih untuk tetap tumbuh—layaknya edelweis yang tumbuh di lereng gunung; dia tumbuh di tempat paling ekstrem dan sulit, tapi tetap mekar paling indah.”
               </p>
-              <p class="edelweis-sign">and goodnight to you 🌙</p>
+              <p class="edelweis-sign">goodnight then🌙</p>
             </div>
             <div id="loveHeart">
               <canvas id="garden"></canvas>
@@ -271,17 +271,30 @@
     const teaseTitle = overlay.querySelector("#tease-title");
 
     const teaseActions = overlay.querySelector(".tease-actions");
+    let lastNoTouchTime = 0;
+    let noSpacer = null;
 
     function moveNoButton(e) {
       if (e) {
         e.preventDefault();
         e.stopPropagation();
       }
+      lastNoTouchTime = performance.now();
+
+      const btnRect = noBtn.getBoundingClientRect();
       if (noBtn.parentElement !== overlay) {
+        if (!noSpacer) {
+          noSpacer = document.createElement("span");
+          noSpacer.style.display = "inline-block";
+          noSpacer.style.width = `${btnRect.width}px`;
+          noSpacer.style.height = `${btnRect.height}px`;
+          noSpacer.style.pointerEvents = "none";
+          noSpacer.setAttribute("aria-hidden", "true");
+        }
+        teaseActions.insertBefore(noSpacer, noBtn);
         overlay.appendChild(noBtn);
       }
 
-      const btnRect = noBtn.getBoundingClientRect();
       const cardRect = step1.getBoundingClientRect();
       const pad = 16;
       const gap = 12;
@@ -347,6 +360,7 @@
     let teaseStepIndex = 0;
 
     yesBtn.addEventListener("click", () => {
+      if (performance.now() - lastNoTouchTime < 450) return;
       if (teaseStepIndex < teaseSteps.length) {
         const next = teaseSteps[teaseStepIndex++];
         if (teaseEmoji) teaseEmoji.textContent = next.emoji;
@@ -356,6 +370,9 @@
         noBtn.style.left = "";
         noBtn.style.top = "";
         noBtn.style.zIndex = "";
+        if (noSpacer && noSpacer.parentElement) {
+          noSpacer.remove();
+        }
         if (teaseActions && noBtn.parentElement !== teaseActions) {
           teaseActions.appendChild(noBtn);
         }
@@ -417,23 +434,26 @@
 
                   // 4. Then pink blooming flowers grow on the right
                   setTimeout(() => {
+                    const revealAfterFlowers = () => {
+                      // 5. After flowers finish blooming, Edelweis quote fades in on the left
+                      setTimeout(() => {
+                        if (edelweisEl) {
+                          edelweisEl.style.display = "block";
+                          requestAnimationFrame(() => edelweisEl.classList.add("is-visible"));
+                        }
+                        if (footerCreditEl) {
+                          footerCreditEl.style.display = "block";
+                          requestAnimationFrame(() => footerCreditEl.classList.add("is-visible"));
+                        }
+                        if (window.showRestartButton) {
+                          window.showRestartButton();
+                        }
+                      }, 5200);
+                    };
+
+                    flowersInlineFrame.addEventListener("load", revealAfterFlowers, { once: true });
                     flowersInlineFrame.src = "flowers.html?v=20261117c";
                     flowersInlineFrame.classList.add("is-visible");
-
-                    // 5. After flowers finish blooming, Edelweis quote fades in on the left
-                    setTimeout(() => {
-                      if (edelweisEl) {
-                        edelweisEl.style.display = "block";
-                        requestAnimationFrame(() => edelweisEl.classList.add("is-visible"));
-                      }
-                      if (footerCreditEl) {
-                        footerCreditEl.style.display = "block";
-                        requestAnimationFrame(() => footerCreditEl.classList.add("is-visible"));
-                      }
-                      if (window.showRestartButton) {
-                        window.showRestartButton();
-                      }
-                    }, 4800);
                   }, 1200);
                 });
               }, 1300);
