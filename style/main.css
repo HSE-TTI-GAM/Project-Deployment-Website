@@ -1013,6 +1013,7 @@ body {
   .bday-modal-card #loveHeart {
     transform: scale(0.8);
     transform-origin: center right;
+    margin-left: -130px;
   }
 
   .edelweis-quote {
@@ -1066,7 +1067,7 @@ body {
 
   .bday-modal-card #code {
     flex: 1 1 52%;
-    min-width: 240px;
+    min-width: 210px;
     height: auto;
     min-height: 290px;
     font-size: 9.2px;
@@ -1078,8 +1079,22 @@ body {
     height: 625px;
     transform: scale(0.52);
     transform-origin: top right;
-    margin-left: -280px;
+    margin-left: -310px;
     margin-bottom: -290px;
+  }
+
+  .tease-modal-card {
+    padding: 1.25rem 1.4rem;
+  }
+
+  .tease-emoji {
+    font-size: 2rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .night-switch-wrap {
+    bottom: 0.75rem;
+    padding: 0.45rem 0.9rem;
   }
 
   .edelweis-quote {
